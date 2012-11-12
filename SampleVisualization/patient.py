@@ -25,6 +25,6 @@ class Patient:
             days.update(prescription.days_taken())
         return days
         
-    def days_taking_all(self, medicine_names):
+    def clash(self, medicine_names):
         days_taking = [self.days_taking(medicine_name) for medicine_name in medicine_names] or [set()]
         return set.intersection(*days_taking)

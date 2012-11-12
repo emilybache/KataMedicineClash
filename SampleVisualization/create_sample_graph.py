@@ -15,7 +15,7 @@ def plot(patient, medicine_names, filename):
         ax.broken_barh(days_to_plot, (10*(i+1), 9), facecolors=['red', 'yellow', 'green', 'blue', 'orange'][i])
     
     days_taking_all = []
-    days_taking_all = sorted([(day.toordinal()-day_zero, 1) for day in patient.days_taking_all(medicine_names)])
+    days_taking_all = sorted([(day.toordinal()-day_zero, 1) for day in patient.clash(medicine_names)])
     ax.broken_barh(days_taking_all, (0, 9), facecolors='black')
     
     medicine_count = len(medicine_names)
