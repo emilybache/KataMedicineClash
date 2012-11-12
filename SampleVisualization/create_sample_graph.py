@@ -23,16 +23,16 @@ def plot(patient, medicine_names, filename):
     ax.set_xlim(-110,0)
     ax.set_xlabel('relative to today')
     ax.set_yticks([i*10+5 for i in range(medicine_count+2)])
-    ax.set_yticklabels(["clash"] + medicine_names)
+    ax.set_yticklabels(["Clash"] + medicine_names)
     ax.grid(True)
 
     fig.savefig(filename)
 
 if __name__ == "__main__":
     patient = Patient()
-    patient.add_prescription(Prescription("Aspirin", dispense_date=date.today() - timedelta(100), days_supply = 20))
-    patient.add_prescription(Prescription("Aspirin", dispense_date=date.today() - timedelta(50), days_supply = 50))
+    patient.add_prescription(Prescription("Fluoxetine", dispense_date=date.today() - timedelta(100), days_supply = 20))
+    patient.add_prescription(Prescription("Fluoxetine", dispense_date=date.today() - timedelta(50), days_supply = 50))
     patient.add_prescription(Prescription("Codeine", dispense_date=date.today() - timedelta(15), days_supply = 3))
     patient.add_prescription(Prescription("Codeine", dispense_date=date.today() - timedelta(60), days_supply = 3))
     patient.add_prescription(Prescription("Codeine", dispense_date=date.today() - timedelta(30), days_supply = 3))
-    plot(patient, ["Aspirin", "Codeine"], "graph.png")
+    plot(patient, ["Fluoxetine", "Codeine"], "graph.png")
