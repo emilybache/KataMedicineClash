@@ -22,6 +22,8 @@ Health Insurance companies don't always get such good press, but in this case, t
 
 For this Kata, your task is to search a database of patient records and find the ones that have recently been taking prescription medicines that clash. For each patient, look at the most recent 90 days, and calculate the number of days they have taken all of a list of medicines that are known to clash.
 
+Create a "Patient" class, with a method "Clash" that takes as arguments a list of medicine names, and how many days back to consider, (default 90). It should return a list of days on which all the medicines in the list were being taken during this time.
+
 ## Data Format
 
 You can assume the data is in a database, which is accessed in the code via an object oriented domain model. The domain model is large and complex, but for this problem you can ignore all but the following entities and attributes:
