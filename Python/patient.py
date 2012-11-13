@@ -9,8 +9,6 @@ class Patient:
     
     def clash(self, medicines, days):
         if not medicines:
-            return 0
-        dates = set()
-        for medicine in medicines:
-            dates = dates.union(set(medicine.dates_prescribed_in_effective_range(days)))
-        return len(dates)
+            return set()
+        dates = set.intersection(*[set(medicine.dates_prescribed_in_effective_range(days)) for medicine in medicines])
+        return dates
