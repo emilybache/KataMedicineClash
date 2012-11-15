@@ -1,0 +1,1 @@
+Here is some code that can create a graph to visualize a medicine clash. To run the code, you will need to install [matplotlib](http://matplotlib.org/). To run the tests for this code, you will need to install [py.test](http://pytest.org)
