@@ -1,7 +1,7 @@
 This Kata is included in my book "The Coding Dojo Handbook", available from [LeanPub](http://leanpub.com/codingdojohandbook). 
 
 - In the folder for each language, are skeleton classes for the domain objects, to get you started on the kata.
-- In the folder "SampleSolution" is a sample solution to the Kata. 
+- In the folder "SolutionForCritique" is a sample solution to the Kata. I encourage you to review and critique it, it is not intended to be an example of an ideal or even a good solution. 
 - In the folder "SampleVisualization", is some Python code that can create a graph to visualize a medicine clash.
 
 # Kata: Medicine Clash
