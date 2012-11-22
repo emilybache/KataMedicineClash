@@ -1,6 +1,6 @@
 require 'bigdecimal'
 require 'rspec'
-require 'mocha_standalone'
+require 'mocha/api'
 
 require_relative "days_ago"
 require_relative "patient"
@@ -24,7 +24,7 @@ describe Medicine do
     context "when ending before today's date" do
       let(:medicine) do
         Medicine.new("Aspirin").tap do |m|
-          m.prescriptions << Prescription.new(:dispense_date => 40.days.ago.to_date, :days_supply => 30)
+          m.prescriptions << Prescription.new(:dispense_date => 40.days.ago, :days_supply => 30)
         end
       end
   
@@ -35,7 +35,7 @@ describe Medicine do
     context "when in theory it would end after today's date" do
       let(:medicine) do
         Medicine.new("Aspirin").tap do |m|
-          m.prescriptions << Prescription.new(:dispense_date => 15.days.ago.to_date, :days_supply => 30)
+          m.prescriptions << Prescription.new(:dispense_date => 15.days.ago, :days_supply => 30)
         end
       end
   
@@ -136,11 +136,11 @@ describe Medicine do
   describe "#dates_prescribed_in_effective_range" do
       let(:medicine) do
         Medicine.new("Aspirin").tap do |m|
-          m.prescriptions << Prescription.new(:dispense_date => 2.days.ago.to_date, :days_supply => 4)
+          m.prescriptions << Prescription.new(:dispense_date => 2.days.ago, :days_supply => 4)
         end
       end
     it "returns the Dates a medicine was prescribed that fall in the effective possession range" do
-      medicine.dates_prescribed_in_effective_range(2).should == [2.days.ago.to_date, 1.day.ago.to_date]
+      medicine.dates_prescribed_in_effective_range(2).should == [2.days.ago, 1.day.ago]
     end
   end
 

@@ -21,9 +21,9 @@ describe Patient do
 
     context "one medicine, taken continuously" do
       before do
-        @codeine.prescriptions << Prescription.new(:dispense_date => 30.days.ago.to_date, :days_supply => 30)
-        @codeine.prescriptions << Prescription.new(:dispense_date => 60.days.ago.to_date, :days_supply => 30)
-        @codeine.prescriptions << Prescription.new(:dispense_date => 90.days.ago.to_date, :days_supply => 30)
+        @codeine.prescriptions << Prescription.new(:dispense_date => 30.days.ago, :days_supply => 30)
+        @codeine.prescriptions << Prescription.new(:dispense_date => 60.days.ago, :days_supply => 30)
+        @codeine.prescriptions << Prescription.new(:dispense_date => 90.days.ago, :days_supply => 30)
       end
 
       it "returns all the days" do
@@ -33,8 +33,8 @@ describe Patient do
 
     context "one medicine, taken only on some of the days" do
       before do
-        @codeine.prescriptions << Prescription.new(:dispense_date => 30.days.ago.to_date, :days_supply => 30)
-        @codeine.prescriptions << Prescription.new(:dispense_date => 60.days.ago.to_date, :days_supply => 30)
+        @codeine.prescriptions << Prescription.new(:dispense_date => 30.days.ago, :days_supply => 30)
+        @codeine.prescriptions << Prescription.new(:dispense_date => 60.days.ago, :days_supply => 30)
       end
 
       it "returns two thirds of the days" do
@@ -44,8 +44,8 @@ describe Patient do
 
     context "two medicines taken in a partially overlapping period" do
       before do
-        @codeine.prescriptions << Prescription.new(:dispense_date => 30.days.ago.to_date, :days_supply => 30)
-        @prozac.prescriptions << Prescription.new(:dispense_date => 40.days.ago.to_date, :days_supply => 30)
+        @codeine.prescriptions << Prescription.new(:dispense_date => 30.days.ago, :days_supply => 30)
+        @prozac.prescriptions << Prescription.new(:dispense_date => 40.days.ago, :days_supply => 30)
       end
 
       it "returns only the days both were taken" do
@@ -55,12 +55,12 @@ describe Patient do
     
     context "two medicines overlapping with current date" do
       before do
-        @codeine.prescriptions << Prescription.new(:dispense_date => 1.day.ago.to_date, :days_supply => 30)
-        @prozac.prescriptions << Prescription.new(:dispense_date => 5.days.ago.to_date, :days_supply => 30)
+        @codeine.prescriptions << Prescription.new(:dispense_date => 1.day.ago, :days_supply => 30)
+        @prozac.prescriptions << Prescription.new(:dispense_date => 5.days.ago, :days_supply => 30)
       end
 
       it "returns only the days both were taken, not future dates" do
-        subject.clash([@codeine, @prozac], 90).should == [1.day.ago.to_date]
+        subject.clash([@codeine, @prozac], 90).should == [1.day.ago]
       end
     end
   end
