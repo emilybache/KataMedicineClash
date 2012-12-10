@@ -7,6 +7,6 @@ class Patient(object):
     def add_medicine(self, medicine):
         self._medicines.append(medicine)
     
-    def clash(self, medicines, days_back=90):
+    def clash(self, medicine_names, days_back=90):
         # TODO: write this code!
         pass

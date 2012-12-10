@@ -12,11 +12,11 @@ public class Patient {
         this.medicines.add(medicine);
     }
 
-    public Collection<Date> clash(Collection<Medicine> medicines) {
-        return clash(medicines, 90);
+    public Collection<Date> clash(Collection<String> medicineNames) {
+        return clash(medicineNames, 90);
     }
 
-    public Collection<Date> clash(Collection<Medicine> medicines, int daysBack) {
+    public Collection<Date> clash(Collection<String> medicineNames, int daysBack) {
         // TODO: implement this method
         return null;
     }
