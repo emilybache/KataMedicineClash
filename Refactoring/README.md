@@ -15,7 +15,9 @@ To run the tests for the Python version, you will need to install [mockito](http
 
 # Doing this kata on cyber-dojo
 
-You can find the starting code for this refactoring kata already set up on cyber-dojo on the following urls:
+As an alternative to downloading the code, click one of the links below to create a new cyber-dojo to work in, then press "start" to get going coding. 
 
 - [Python](http://cyber-dojo.com/forker/fork/873FECBDFE?avatar=deer&tag=12)
+- [Ruby](http://cyber-dojo.com/forker/fork/8920A37C57?avatar=deer&tag=11)
 
+Note I havn't included some of the tests in the cyber-dojo version, since they need a mocking tool, and cyber-dojo doesn't provide one. This shouldn't affect the exercise significantly.
