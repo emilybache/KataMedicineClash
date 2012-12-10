@@ -1,4 +1,4 @@
-This Kata is included in my book "The Coding Dojo Handbook", available from [LeanPub](http://leanpub.com/codingdojohandbook). 
+This Kata is included in my book ["The Coding Dojo Handbook"](http://leanpub.com/codingdojohandbook). 
 
 - In the folder for each language, are skeleton classes for the domain objects, to get you started on the kata.
 - In the folder "Refactoring" is a refactoring version of this kata
@@ -18,7 +18,7 @@ For this Kata, you have a recently discovered medicine clash, and you want to lo
 
 # Doing this kata on cyber-dojo
 
-I have set up this starting code on cyber-dojo. As an alternative to downloading the code, click on the links below to get going quickly in the cyber-dojo environment:
+As an alternative to downloading the code, click one of the links below to create a new cyber-dojo to work in, then press "start" to get going coding.
 
 - [Python](http://cyber-dojo.com/forker/fork/0B0F2D70B1?avatar=lion&tag=2)
 - [Ruby](http://cyber-dojo.com/forker/fork/DFDB32D26B?avatar=elephant&tag=9)
