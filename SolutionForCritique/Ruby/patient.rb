@@ -6,10 +6,15 @@ class Patient
     @medicines = []
   end
 
-  def clash(medicines, days)
-    return [] if medicines.empty?
-    day_count = Date.today - days
-    medicines.map { |medicine| medicine.dates_prescribed_in_effective_range(day_count)}.inject{|x, y| x & y}
+  def clash(medicine_names, days_back)
+    medicines_taken = medicines_taken_from(medicine_names)
+    return [] if medicines_taken.empty?
+    all_dates = medicines_taken.map { |medicine| medicine.dates_prescribed_in_effective_range(days_back)}
+    all_dates.inject{|x, y| x & y}
+  end
+
+  def medicines_taken_from(medicine_names)
+    @medicines.select { |medicine| medicine_names.include?(medicine.name) }
   end
 
 end

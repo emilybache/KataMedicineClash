@@ -4,41 +4,68 @@ require_relative "medicine"
 require_relative "prescription"
 
 describe Patient do
-  describe "#clash" do
-      before do
-      @patient = Patient.new
-      @codeine = Medicine.new(:name => "Codeine")
-      @prozac = Medicine.new(:name => "Prozac")
-      @patient.medicines << @codeine
-      @patient.medicines << @prozac
-    end
+  before do
+    @patient = Patient.new
+    @codeine = Medicine.new("Codeine")
+    @prozac = Medicine.new("Prozac")
+    @patient.medicines << @codeine
+    @patient.medicines << @prozac
+  end
 
+  describe "#clash" do
     context "no prescriptions" do
       it "returns an empty list of dates" do
-        subject.clash([@codeine, @prozac], 90).should == []
+        @patient.clash(["Codeine", "Prozac"], 90).should == []
       end
     end
 
-    context "one medicine, taken continuously" do
+    context "only one medicine being taken" do
+      before do
+        @codeine.prescriptions << Prescription.new(:dispense_date => 30.days.ago, :days_supply => 30)
+      end
+
+      it "returns an empty list of days" do
+        @patient.clash(["Codeine", "Prozac"], 90).size.should == 0
+      end
+    end
+
+    context "both medicines taken but with no overlap" do
+      before do
+        @codeine.prescriptions << Prescription.new(:dispense_date => 30.days.ago, :days_supply => 30)
+        @prozac.prescriptions << Prescription.new(:dispense_date => 90.days.ago, :days_supply => 30)
+      end
+
+      it "returns an empty list of days" do
+        @patient.clash(["Codeine", "Prozac"], 90).size.should == 0
+      end
+    end
+
+    context "both medicines taken continuously" do
       before do
         @codeine.prescriptions << Prescription.new(:dispense_date => 30.days.ago, :days_supply => 30)
         @codeine.prescriptions << Prescription.new(:dispense_date => 60.days.ago, :days_supply => 30)
         @codeine.prescriptions << Prescription.new(:dispense_date => 90.days.ago, :days_supply => 30)
+        @prozac.prescriptions << Prescription.new(:dispense_date => 30.days.ago, :days_supply => 30)
+        @prozac.prescriptions << Prescription.new(:dispense_date => 60.days.ago, :days_supply => 30)
+        @prozac.prescriptions << Prescription.new(:dispense_date => 90.days.ago, :days_supply => 30)
       end
 
       it "returns all the days" do
-        subject.clash([@codeine], 90).size.should == 90
+        @patient.clash(["Codeine", "Prozac"], 90).size.should == 90
       end
     end
 
-    context "one medicine, taken only on some of the days" do
+    context "one medicine taken only on some of the days" do
       before do
         @codeine.prescriptions << Prescription.new(:dispense_date => 30.days.ago, :days_supply => 30)
         @codeine.prescriptions << Prescription.new(:dispense_date => 60.days.ago, :days_supply => 30)
+        @prozac.prescriptions << Prescription.new(:dispense_date => 30.days.ago, :days_supply => 30)
+        @prozac.prescriptions << Prescription.new(:dispense_date => 60.days.ago, :days_supply => 30)
+        @prozac.prescriptions << Prescription.new(:dispense_date => 90.days.ago, :days_supply => 30)
       end
 
       it "returns two thirds of the days" do
-        subject.clash([@codeine], 90).size.should == 60
+        @patient.clash(["Codeine", "Prozac"], 90).size.should == 60
       end
     end
 
@@ -49,7 +76,7 @@ describe Patient do
       end
 
       it "returns only the days both were taken" do
-        subject.clash([@codeine, @prozac], 90).size.should == 20
+        @patient.clash(["Codeine", "Prozac"], 90).size.should == 20
       end
     end
     
@@ -60,8 +87,39 @@ describe Patient do
       end
 
       it "returns only the days both were taken, not future dates" do
-        subject.clash([@codeine, @prozac], 90).should == [1.day.ago]
+        @patient.clash(["Codeine", "Prozac"], 90).should == [1.day.ago]
+      end
+    end
+    context "two medicines overlapping with start of period" do
+      before do
+        @codeine.prescriptions << Prescription.new(:dispense_date => 91.day.ago, :days_supply => 30)
+        @prozac.prescriptions << Prescription.new(:dispense_date => 119.days.ago, :days_supply => 30)
+      end
+
+      it "returns only the days both were taken that fall within the last 90 days" do
+        @patient.clash(["Codeine", "Prozac"], 90).should == [90.days.ago]
       end
     end
   end
+
+  describe "#medicines_taken_from" do
+    context "emty list of names" do
+      it "returns an empty list of medicines" do
+        @patient.medicines_taken_from([]).should == []
+      end
+    end
+
+    context "two medicines that are being taken" do
+      it "returns the medicines on the list" do
+        @patient.medicines_taken_from(["Codeine", "Prozac"]).should == [@codeine, @prozac]
+      end
+    end
+
+    context "two medicines, one is not being taken" do
+      it "returns the medicine that is being taken" do
+        @patient.medicines_taken_from(["Codeine", "foo"]).should == [@codeine]
+      end
+    end
+  end
+
 end
